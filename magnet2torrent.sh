@@ -56,7 +56,7 @@ fi
 ####################################################################
 find $DIR -name '*.torrent' -mtime +2 -exec rm {} \;
 
-for f in $DIR/*magnet.txt; do # $f stores current file name
+for f in $DIR/magnets/*/magnet.txt; do # $f stores current file name
   [ -e "$f" ] || continue # fix case where no files match, but for still executes with *.magnet
   # take action on each file. 
   echo "converting $f"

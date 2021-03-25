@@ -55,7 +55,7 @@ fi
 # which should gave rtorrent plenty of time to have picked them up.#
 ####################################################################
 find $DIR -name '*.torrent' -mtime +2 -exec rm {} \;
-
+echo "1"
 for f in $DIR/magnets/*.txt; do # $f stores current file name
   [ -e "$f" ] || continue # fix case where no files match, but for still executes with *.magnet
   # take action on each file. 
@@ -68,7 +68,7 @@ for f in $DIR/magnets/*.txt; do # $f stores current file name
   echo "deleting $f"
   rm -f "$f" 
 done
-
+echo "2"
 # write a status file with date of last run.  Helps troubleshoot that cron task is running.
 echo "$(basename $0) last run was at $(date)" > $DIR/_$(basename $0)_lastrun.txt
 

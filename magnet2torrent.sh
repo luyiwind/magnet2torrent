@@ -37,7 +37,7 @@
 #  v0.4 phatpaul: check that script is not already running.
 #                  don't run aria2c if no .magnet files found
 ####################################################################
-DIR=/root/jav_auto/
+DIR=/root/jav_auto
 
 # Make sure this script is not already running!
 if pidof -x $(basename $0) > /dev/null; then
@@ -55,8 +55,8 @@ fi
 # which should gave rtorrent plenty of time to have picked them up.#
 ####################################################################
 find $DIR -name '*.torrent' -mtime +2 -exec rm {} \;
-echo "1"
-for f in $DIR/*.txt; do # $f stores current file name
+
+for f in $DIR/*magnet.txt; do # $f stores current file name
   [ -e "$f" ] || continue # fix case where no files match, but for still executes with *.magnet
   # take action on each file. 
   echo "converting $f"
@@ -68,7 +68,7 @@ for f in $DIR/*.txt; do # $f stores current file name
   echo "deleting $f"
   rm -f "$f" 
 done
-echo "2"
+
 # write a status file with date of last run.  Helps troubleshoot that cron task is running.
 echo "$(basename $0) last run was at $(date)" > $DIR/_$(basename $0)_lastrun.txt
 

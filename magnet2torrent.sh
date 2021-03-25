@@ -37,7 +37,7 @@
 #  v0.4 phatpaul: check that script is not already running.
 #                  don't run aria2c if no .magnet files found
 ####################################################################
-DIR=/mnt/scratch/downloads/watch
+DIR=/root/jav_auto/
 
 # Make sure this script is not already running!
 if pidof -x $(basename $0) > /dev/null; then
@@ -56,11 +56,11 @@ fi
 ####################################################################
 find $DIR -name '*.torrent' -mtime +2 -exec rm {} \;
 
-for f in $DIR/*.magnet; do # $f stores current file name
+for f in $DIR/magnets/*.txt; do # $f stores current file name
   [ -e "$f" ] || continue # fix case where no files match, but for still executes with *.magnet
   # take action on each file. 
   echo "converting $f"
-  aria2c -d $DIR --bt-metadata-only=true --bt-save-metadata=true --listen-port=6881 --enable-dht --dht-listen-port=6881 $(cat "$f")
+  aria2c -d $DIR/torrents --bt-metadata-only=true --bt-save-metadata=true --listen-port=6881 --enable-dht --dht-listen-port=6881 $(cat "$f")
   # $(cat $f) passes file contents of file named in $f to aria2c. 
   #Torrent file is saved in $DIR folder with unique hash as file name. ex: d9c5fd7034fc2eb7efab6ddcd5bfd34ce1fe3be0.torrent
 

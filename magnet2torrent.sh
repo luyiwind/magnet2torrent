@@ -60,7 +60,7 @@ for f in $DIR/magnets/*/magnet.txt; do # $f stores current file name
   [ -e "$f" ] || continue # fix case where no files match, but for still executes with *.magnet
   # take action on each file. 
   echo "converting $f"
-  aria2c -d $DIR/torrents --bt-metadata-only=true --bt-save-metadata=true --listen-port=6881 --enable-dht --dht-listen-port=6881 $(cat "$f")
+  aria2c -d $DIR/torrents -x3 --bt-metadata-only=true --bt-save-metadata=true --listen-port=6881 --enable-dht --dht-listen-port=6881 $(cat "$f")
   # $(cat $f) passes file contents of file named in $f to aria2c. 
   #Torrent file is saved in $DIR folder with unique hash as file name. ex: d9c5fd7034fc2eb7efab6ddcd5bfd34ce1fe3be0.torrent
 
